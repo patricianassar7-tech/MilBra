@@ -3,80 +3,203 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#fff7e8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MilBra">
+<meta name="apple-mobile-web-app-title" content="Maceggs">
 <link rel="manifest" href="manifest.webmanifest">
-<title>MilBra 3.0</title>
+<title>Maceggs</title>
 <style>
-:root{--bg:#0b0d10;--panel:#15191f;--line:#292f37;--text:#f5f7fa;--muted:#87909e;--white:#f4f6f8}
-*{box-sizing:border-box}html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-body{overflow:hidden}.app{height:100dvh;display:flex;flex-direction:column}
-header{height:66px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;padding-top:env(safe-area-inset-top)}
-.icon{width:40px;height:40px;border:0;background:transparent;color:#fff;font-size:23px}.brand{display:flex;gap:10px;align-items:center}.logo{width:36px;height:36px;border-radius:12px;background:var(--white);color:#0b0d10;display:grid;place-items:center;font-size:20px;font-weight:900}.title{font-weight:800}.sub{font-size:10px;color:var(--muted);margin-top:2px}.status{display:inline-block;width:7px;height:7px;border-radius:50%;background:#666;margin-right:5px}.status.on{background:#32d074}
-main{flex:1;overflow:auto;padding:20px 14px 145px}.wrap{max-width:780px;margin:auto}.hero{text-align:center;padding:45px 10px 28px}.hero .big{width:76px;height:76px;border-radius:25px;background:var(--white);color:#0b0d10;margin:0 auto 20px;display:grid;place-items:center;font-size:34px;font-weight:900}.hero h1{font-size:31px;margin:0 0 10px}.hero p{color:var(--muted);line-height:1.5;max-width:430px;margin:auto}.chips{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:580px;margin:25px auto}.chip{background:#13171c;border:1px solid var(--line);color:#fff;border-radius:18px;padding:15px;text-align:left}
-.msg{margin:18px 0 26px}.meta{display:flex;align-items:center;gap:9px;margin-bottom:8px}.avatar{width:29px;height:29px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:12px}.ai{background:var(--white);color:#0b0d10}.userav{background:#2b3139}.name{font-size:13px;font-weight:700}.text{padding-left:38px;font-size:16px;line-height:1.55;white-space:pre-wrap}.error{color:#ff8d8d}
-.bottom{position:fixed;left:0;right:0;bottom:0;padding:24px 11px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#0b0d10 34%)}.composer{max-width:780px;margin:auto;background:var(--panel);border:1px solid var(--line);border-radius:29px;display:flex;align-items:flex-end;padding:7px;gap:5px}.plus,.mic{border:0;background:transparent;color:#ddd;width:42px;height:42px;border-radius:50%;font-size:21px}textarea{flex:1;resize:none;border:0;outline:0;background:transparent;color:#fff;min-height:42px;max-height:130px;padding:10px 3px;font-size:16px}.send{border:0;width:42px;height:42px;border-radius:50%;background:var(--white);color:#0b0d10;font-size:22px;font-weight:900}.send:disabled{opacity:.25}.foot{text-align:center;color:#656e7b;font-size:10px;margin-top:8px}
-.panel{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:10;display:none}.panel.open{display:block}.side{width:min(88vw,350px);height:100%;background:#111419;padding:22px 14px}.side h2{margin:5px 5px 18px}.btn{width:100%;border:1px solid var(--line);background:#171b21;color:white;border-radius:14px;padding:13px;text-align:left;margin-bottom:9px}.hist{padding:10px 8px;border-radius:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hist.active{background:#1b2027}
-@media(max-width:520px){.chips{grid-template-columns:1fr}.hero{padding-top:35px}.hero h1{font-size:28px}}
+:root{--bg:#fff7e8;--card:#fff;--ink:#2c241c;--muted:#776b60;--line:#eadfce;--accent:#5b3b1f;--soft:#f7ead1;--danger:#a03030}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;background:rgba(255,247,232,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.header{max-width:780px;margin:auto;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;font-size:22px;display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;background:var(--accent);color:white;border-radius:14px;display:grid;place-items:center}
+.cartTop{border:0;background:var(--accent);color:white;border-radius:999px;padding:11px 15px;font-weight:850}
+main{max-width:780px;margin:auto;padding:18px 16px 46px}.hero{padding:10px 0 4px}.hero h1{font-size:38px;margin:8px 0 8px}.hero p{color:var(--muted);font-size:17px;line-height:1.5;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:16px;box-shadow:0 8px 28px rgba(45,32,18,.04)}
+.card h2{margin:0 0 14px}.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}.product{border:1px solid var(--line);border-radius:18px;padding:14px}
+.egg{height:100px;background:var(--soft);border-radius:15px;display:grid;place-items:center;font-size:48px}.price{font-size:23px;font-weight:900;margin:7px 0 12px}
+.add{width:100%;border:0;background:var(--accent);color:#fff;border-radius:13px;padding:12px;font-weight:850}
+.cartItem{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:22px;font-weight:900}.qty span{min-width:24px;text-align:center;font-weight:900}
+.empty{color:var(--muted);padding:8px 0}.total{display:flex;justify-content:space-between;font-size:23px;font-weight:900;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+label{display:block;font-size:13px;font-weight:800;margin:12px 0 6px}input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:16px;outline:none}input:focus{border-color:#b69a7a}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pixbox{display:flex;align-items:center;gap:10px;background:#f8f3eb;border-radius:14px;padding:12px}.pixbox code{flex:1;font-size:17px;word-break:break-all}
+.primary,.secondary{width:100%;padding:14px;border-radius:14px;font-size:16px;font-weight:900;margin-top:10px}.primary{border:0;background:var(--accent);color:#fff}.secondary{border:1px solid var(--accent);background:#fff;color:var(--accent)}
+.note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:10px}.error{display:none;background:#fff0f0;color:var(--danger);padding:12px;border-radius:12px;margin-top:12px;font-weight:700}
+.success{display:none;background:#eef8f1;color:#176438;padding:12px;border-radius:12px;margin-top:12px;font-weight:700}
+@media(max-width:560px){.products,.row{grid-template-columns:1fr}.hero h1{font-size:34px}}
 </style>
 </head>
 <body>
-<div class="app">
-<header>
-<button class="icon" id="menu">☰</button>
-<div class="brand"><div class="logo">✦</div><div><div class="title">MilBra</div><div class="sub"><span id="dot" class="status"></span><span id="statusText">verificando cérebro...</span></div></div></div>
-<button class="icon" id="new">＋</button>
-</header>
-<main id="main"><div class="wrap">
-<section class="hero" id="hero">
-<div class="big">✦</div><h1>MilBra 3.0</h1>
-<p>Agora preparado para conversar com uma IA de verdade.</p>
-<div class="chips">
-<button class="chip">📚 Me ajude a estudar</button>
-<button class="chip">🧠 Explique algo difícil</button>
-<button class="chip">🎮 Crie um jogo comigo</button>
-<button class="chip">🚀 Me dê uma ideia incrível</button>
+<header><div class="header">
+<div class="brand"><div class="logo">🥚</div>Maceggs</div>
+<button class="cartTop" id="goCart" type="button">Carrinho <span id="cartCount">0</span></button>
+</div></header>
+
+<main>
+<section class="hero"><h1>Ovos de codorna fresquinhos.</h1><p>Escolha, informe o endereço, pague por Pix e mande o comprovante.</p></section>
+
+<section class="card">
+<h2>1. Escolha seu pedido</h2>
+<div class="products">
+<div class="product"><div class="egg">🥚</div><h3>30 ovos</h3><div class="price">R$ 20,00</div><button class="add" id="add30" type="button">Adicionar</button></div>
+<div class="product"><div class="egg">🥚🥚</div><h3>60 ovos</h3><div class="price">R$ 40,00</div><button class="add" id="add60" type="button">Adicionar</button></div>
 </div>
 </section>
-<div id="chat"></div>
-</div></main>
-<div class="bottom"><div class="composer">
-<button class="plus">＋</button>
-<textarea id="input" rows="1" placeholder="Mensagem para o MilBra"></textarea>
-<button class="mic" id="mic">🎙</button>
-<button class="send" id="send" disabled>↑</button>
-</div><div class="foot">MilBra pode cometer erros. Confira informações importantes.</div></div>
-</div>
-<div class="panel" id="panel"><div class="side"><h2>MilBra</h2><button class="btn" id="new2">＋ Nova conversa</button><div id="history"></div></div></div>
+
+<section class="card" id="cart">
+<h2>2. Carrinho</h2>
+<div id="cartItems"></div>
+<div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
+</section>
+
+<section class="card" id="delivery">
+<h2>3. Dados para entrega</h2>
+<label for="nome">Nome</label><input id="nome" autocomplete="name" placeholder="Seu nome">
+<label for="rua">Rua</label><input id="rua" autocomplete="street-address" placeholder="Rua">
+<div class="row"><div><label for="quadra">Quadra</label><input id="quadra" placeholder="Quadra"></div><div><label for="lote">Lote</label><input id="lote" placeholder="Lote"></div></div>
+<label for="bairro">Bairro</label><input id="bairro" placeholder="Bairro">
+<div class="row"><div><label for="cidade">Cidade</label><input id="cidade" placeholder="Cidade"></div><div><label for="cep">CEP</label><input id="cep" inputmode="numeric" placeholder="00000-000"></div></div>
+<label for="referencia">Complemento / referência</label><input id="referencia" placeholder="Opcional">
+</section>
+
+<section class="card">
+<h2>4. Pagamento</h2>
+<div class="pixbox"><code id="pix">10106602179</code><button id="copyPix" type="button">Copiar</button></div>
+<button class="primary" id="copyPix2" type="button">Copiar Pix para pagar</button>
+<div class="note">Depois do pagamento, toque abaixo. O WhatsApp abrirá com o pedido e o endereço preenchidos. Aí é só anexar a foto do comprovante.</div>
+<div class="error" id="errorBox"></div>
+<div class="success" id="successBox">Pix copiado.</div>
+<button class="secondary" id="sendProof" type="button">Já paguei — enviar comprovante</button>
+</section>
+</main>
+
 <script>
-const $=x=>document.getElementById(x), chat=$('chat'), input=$('input'), send=$('send'), main=$('main'), hero=$('hero');
-let data=JSON.parse(localStorage.getItem('milbra3')||'null')||{conversations:[],current:null,name:'Marco',personality:'amigável'};
-function save(){localStorage.setItem('milbra3',JSON.stringify(data));history()}
-function cur(){return data.conversations.find(c=>c.id===data.current)}
-function fresh(){const c={id:Date.now(),title:'Nova conversa',messages:[]};data.conversations.unshift(c);data.current=c.id;save();render();$('panel').classList.remove('open')}
-function esc(s){return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
-function row(m,extra=''){const d=document.createElement('div');d.className='msg';d.innerHTML=`<div class="meta"><div class="avatar ${m.role==='assistant'?'ai':'userav'}">${m.role==='assistant'?'✦':'M'}</div><div class="name">${m.role==='assistant'?'MilBra':'Você'}</div></div><div class="text ${extra}">${esc(m.text)}</div>`;chat.appendChild(d);return d}
-function render(){chat.innerHTML='';const ms=cur()?.messages||[];hero.style.display=ms.length?'none':'block';ms.forEach(m=>row(m));setTimeout(()=>main.scrollTop=main.scrollHeight,20)}
-function history(){$('history').innerHTML='';data.conversations.forEach(c=>{const e=document.createElement('div');e.className='hist '+(c.id===data.current?'active':'');e.textContent=c.title;e.onclick=()=>{data.current=c.id;save();render();$('panel').classList.remove('open')};$('history').appendChild(e)})}
-async function ask(text){
- if(!text.trim())return;if(!cur())fresh();const c=cur();c.messages.push({role:'user',text:text.trim()});if(c.title==='Nova conversa')c.title=text.trim().slice(0,35);input.value='';send.disabled=true;save();render();
- const thinking=row({role:'assistant',text:'Pensando…'});main.scrollTop=main.scrollHeight;
- try{
-  const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:c.messages,name:data.name,personality:data.personality})});
-  const j=await r.json();thinking.remove();
-  if(!r.ok)throw new Error(j.error||'Erro ao conversar com a IA.');
-  c.messages.push({role:'assistant',text:j.reply});save();render();
- }catch(e){thinking.remove();row({role:'assistant',text:e.message},'error');}
-}
-input.oninput=()=>{input.style.height='auto';input.style.height=Math.min(input.scrollHeight,130)+'px';send.disabled=!input.value.trim()}
-input.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ask(input.value)}}
-send.onclick=()=>ask(input.value);
-document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>ask(b.textContent.replace(/^.. /,'')));
-$('menu').onclick=()=>$('panel').classList.add('open');$('panel').onclick=e=>{if(e.target===$('panel'))$('panel').classList.remove('open')};$('new').onclick=fresh;$('new2').onclick=fresh;
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-if(SR){const r=new SR();r.lang='pt-BR';r.onresult=e=>{input.value=e.results[0][0].transcript;input.oninput()};$('mic').onclick=()=>r.start()}else $('mic').onclick=()=>alert('Ditado por voz não está disponível neste navegador.');
-fetch('/api/status').then(r=>r.json()).then(s=>{if(s.brainConnected){$('dot').classList.add('on');$('statusText').textContent='cérebro conectado'}else $('statusText').textContent='aguardando chave da IA'}).catch(()=>{$('statusText').textContent='abra pelo servidor do MilBra'});
-if(!data.conversations.length)fresh();else{if(!data.current)data.current=data.conversations[0].id;history();render()}
+(function(){
+  "use strict";
+  const PIX = "10106602179";
+  const WHATSAPP = "5562984016111";
+  const cart = {30:0,60:0};
+  const price = {30:20,60:40};
+  const $ = (id)=>document.getElementById(id);
+
+  function brl(n){ return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
+  function cartTotal(){ return cart[30]*price[30] + cart[60]*price[60]; }
+  function cartCount(){ return cart[30]+cart[60]; }
+
+  function renderCart(){
+    $("cartCount").textContent = cartCount();
+    $("total").textContent = brl(cartTotal());
+    const box = $("cartItems");
+    box.innerHTML = "";
+    [30,60].forEach(function(id){
+      if(cart[id] <= 0) return;
+      const row = document.createElement("div");
+      row.className = "cartItem";
+      row.innerHTML =
+        "<div><strong>"+id+" ovos</strong><br><small>"+brl(price[id])+" por unidade</small></div>"+
+        "<div class='qty'>"+
+        "<button type='button' data-minus='"+id+"'>−</button>"+
+        "<span>"+cart[id]+"</span>"+
+        "<button type='button' data-plus='"+id+"'>+</button>"+
+        "</div>";
+      box.appendChild(row);
+    });
+    if(cartCount()===0){
+      box.innerHTML = "<div class='empty'>Seu carrinho está vazio.</div>";
+    }
+    box.querySelectorAll("[data-minus]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        const id = Number(btn.dataset.minus);
+        cart[id] = Math.max(0,cart[id]-1);
+        renderCart();
+      });
+    });
+    box.querySelectorAll("[data-plus]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        const id = Number(btn.dataset.plus);
+        cart[id] += 1;
+        renderCart();
+      });
+    });
+  }
+
+  function add(id){
+    cart[id] += 1;
+    renderCart();
+    $("cart").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  async function copyPix(){
+    $("errorBox").style.display = "none";
+    try{
+      if(navigator.clipboard && window.isSecureContext){
+        await navigator.clipboard.writeText(PIX);
+      }else{
+        const area = document.createElement("textarea");
+        area.value = PIX;
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.focus(); area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+      $("successBox").style.display = "block";
+      setTimeout(function(){ $("successBox").style.display = "none"; },1800);
+    }catch(e){
+      window.prompt("Copie sua chave Pix:",PIX);
+    }
+  }
+
+  function field(id){ return $(id).value.trim(); }
+
+  function sendProof(){
+    $("errorBox").style.display = "none";
+    if(cartCount()===0){
+      $("errorBox").textContent = "Escolha 30 ou 60 ovos antes de continuar.";
+      $("errorBox").style.display = "block";
+      $("cart").scrollIntoView({behavior:"smooth"});
+      return;
+    }
+    const required = ["nome","rua","quadra","lote","bairro","cidade","cep"];
+    for(const id of required){
+      if(!field(id)){
+        $("errorBox").textContent = "Preencha todos os dados para entrega.";
+        $("errorBox").style.display = "block";
+        $(id).focus();
+        $("delivery").scrollIntoView({behavior:"smooth"});
+        return;
+      }
+    }
+    const items = [];
+    if(cart[30]) items.push(cart[30]+"x 30 ovos");
+    if(cart[60]) items.push(cart[60]+"x 60 ovos");
+    const address =
+      field("rua")+", Quadra "+field("quadra")+", Lote "+field("lote")+
+      ", "+field("bairro")+", "+field("cidade")+", CEP "+field("cep")+
+      (field("referencia") ? " — Ref.: "+field("referencia") : "");
+    const message =
+      "Olá! Fiz um pedido na Maceggs.\n\n"+
+      "Nome: "+field("nome")+"\n"+
+      "Pedido: "+items.join(", ")+"\n"+
+      "Total: "+brl(cartTotal())+"\n"+
+      "Entrega: "+address+"\n\n"+
+      "Estou enviando o comprovante do Pix.";
+    const url = "https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(message);
+    window.location.href = url;
+  }
+
+  $("add30").addEventListener("click",function(){ add(30); });
+  $("add60").addEventListener("click",function(){ add(60); });
+  $("goCart").addEventListener("click",function(){ $("cart").scrollIntoView({behavior:"smooth"}); });
+  $("copyPix").addEventListener("click",copyPix);
+  $("copyPix2").addEventListener("click",copyPix);
+  $("sendProof").addEventListener("click",sendProof);
+  renderCart();
+})();
 </script>
-</body></html>
+</body>
+</html>
