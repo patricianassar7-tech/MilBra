@@ -1,0 +1,8 @@
+{
+  "name": "MilBra 3.0",
+  "short_name": "MilBra",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0d10",
+  "theme_color": "#0b0d10"
+}
