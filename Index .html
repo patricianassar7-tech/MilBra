@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff7e8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Maceggs">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Maceggs</title>
+<style>
+:root{--bg:#fff7e8;--card:#fff;--ink:#2c241c;--muted:#776b60;--line:#eadfce;--accent:#5b3b1f;--soft:#f7ead1;--danger:#a03030}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;background:rgba(255,247,232,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.header{max-width:780px;margin:auto;padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;font-size:22px;display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;background:var(--accent);color:white;border-radius:14px;display:grid;place-items:center}
+.cartTop{border:0;background:var(--accent);color:white;border-radius:999px;padding:11px 15px;font-weight:850}
+main{max-width:780px;margin:auto;padding:18px 16px 46px}.hero{padding:10px 0 4px}.hero h1{font-size:38px;margin:8px 0 8px}.hero p{color:var(--muted);font-size:17px;line-height:1.5;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:16px;box-shadow:0 8px 28px rgba(45,32,18,.04)}
+.card h2{margin:0 0 14px}.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}.product{border:1px solid var(--line);border-radius:18px;padding:14px}
+.egg{height:100px;background:var(--soft);border-radius:15px;display:grid;place-items:center;font-size:48px}.price{font-size:23px;font-weight:900;margin:7px 0 12px}
+.add{width:100%;border:0;background:var(--accent);color:#fff;border-radius:13px;padding:12px;font-weight:850}
+.cartItem{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:22px;font-weight:900}.qty span{min-width:24px;text-align:center;font-weight:900}
+.empty{color:var(--muted);padding:8px 0}.total{display:flex;justify-content:space-between;font-size:23px;font-weight:900;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+label{display:block;font-size:13px;font-weight:800;margin:12px 0 6px}input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:16px;outline:none}input:focus{border-color:#b69a7a}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pixbox{display:flex;align-items:center;gap:10px;background:#f8f3eb;border-radius:14px;padding:12px}.pixbox code{flex:1;font-size:17px;word-break:break-all}
+.primary,.secondary{width:100%;padding:14px;border-radius:14px;font-size:16px;font-weight:900;margin-top:10px}.primary{border:0;background:var(--accent);color:#fff}.secondary{border:1px solid var(--accent);background:#fff;color:var(--accent)}
+.note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:10px}.error{display:none;background:#fff0f0;color:var(--danger);padding:12px;border-radius:12px;margin-top:12px;font-weight:700}
+.success{display:none;background:#eef8f1;color:#176438;padding:12px;border-radius:12px;margin-top:12px;font-weight:700}
+@media(max-width:560px){.products,.row{grid-template-columns:1fr}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header><div class="header">
+<div class="brand"><div class="logo">🥚</div>Maceggs</div>
+<button class="cartTop" id="goCart" type="button">Carrinho <span id="cartCount">0</span></button>
+</div></header>
+
+<main>
+<section class="hero"><h1>Ovos de codorna fresquinhos.</h1><p>Escolha seus ovos, pague por Pix e mande o comprovante.</p></section>
+
+<section class="card">
+<h2>1. Escolha seu pedido</h2>
+<div class="products">
+<div class="product"><div class="egg">🥚</div><h3>30 ovos</h3><div class="price">R$ 20,00</div><button class="add" id="add30" type="button">Adicionar</button></div>
+<div class="product"><div class="egg">🥚🥚</div><h3>60 ovos</h3><div class="price">R$ 40,00</div><button class="add" id="add60" type="button">Adicionar</button></div>
+</div>
+</section>
+
+<section class="card" id="cart">
+<h2>2. Carrinho</h2>
+<div id="cartItems"></div>
+<div class="total"><span>Total</span><span id="total">R$ 0,00</span></div>
+</section>
+
+<section class="card" id="delivery">
+<h2>3. Dados para entrega <small>(opcional)</small></h2>
+<label for="nome">Nome</label><input id="nome" autocomplete="name" placeholder="Seu nome">
+<label for="rua">Rua</label><input id="rua" autocomplete="street-address" placeholder="Rua">
+<div class="row"><div><label for="quadra">Quadra</label><input id="quadra" placeholder="Quadra"></div><div><label for="lote">Lote</label><input id="lote" placeholder="Lote"></div></div>
+<label for="bairro">Bairro</label><input id="bairro" placeholder="Bairro">
+<div class="row"><div><label for="cidade">Cidade</label><input id="cidade" placeholder="Cidade"></div><div><label for="cep">CEP</label><input id="cep" inputmode="numeric" placeholder="00000-000"></div></div>
+<label for="referencia">Complemento / referência</label><input id="referencia" placeholder="Opcional">
+</section>
+
+<section class="card">
+<h2>4. Pagamento</h2>
+<div class="pixbox"><code id="pix">10106602179</code><button id="copyPix" type="button">Copiar</button></div>
+<button class="primary" id="copyPix2" type="button">Copiar Pix para pagar</button>
+<div class="note">Depois do pagamento, toque abaixo. O WhatsApp abrirá com o pedido. Se você preencher o endereço, ele também será enviado. Aí é só anexar a foto do comprovante.</div>
+<div class="error" id="errorBox"></div>
+<div class="success" id="successBox">Pix copiado.</div>
+<button class="secondary" id="sendProof" type="button">Já paguei — enviar comprovante</button>
+</section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  const PIX = "10106602179";
+  const WHATSAPP = "5562984016111";
+  const cart = {30:0,60:0};
+  const price = {30:20,60:40};
+  const $ = (id)=>document.getElementById(id);
+
+  function brl(n){ return n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
+  function cartTotal(){ return cart[30]*price[30] + cart[60]*price[60]; }
+  function cartCount(){ return cart[30]+cart[60]; }
+
+  function renderCart(){
+    $("cartCount").textContent = cartCount();
+    $("total").textContent = brl(cartTotal());
+    const box = $("cartItems");
+    box.innerHTML = "";
+    [30,60].forEach(function(id){
+      if(cart[id] <= 0) return;
+      const row = document.createElement("div");
+      row.className = "cartItem";
+      row.innerHTML =
+        "<div><strong>"+id+" ovos</strong><br><small>"+brl(price[id])+" por unidade</small></div>"+
+        "<div class='qty'>"+
+        "<button type='button' data-minus='"+id+"'>−</button>"+
+        "<span>"+cart[id]+"</span>"+
+        "<button type='button' data-plus='"+id+"'>+</button>"+
+        "</div>";
+      box.appendChild(row);
+    });
+    if(cartCount()===0){
+      box.innerHTML = "<div class='empty'>Seu carrinho está vazio.</div>";
+    }
+    box.querySelectorAll("[data-minus]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        const id = Number(btn.dataset.minus);
+        cart[id] = Math.max(0,cart[id]-1);
+        renderCart();
+      });
+    });
+    box.querySelectorAll("[data-plus]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        const id = Number(btn.dataset.plus);
+        cart[id] += 1;
+        renderCart();
+      });
+    });
+  }
+
+  function add(id){
+    cart[id] += 1;
+    renderCart();
+    $("cart").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  async function copyPix(){
+    $("errorBox").style.display = "none";
+    try{
+      if(navigator.clipboard && window.isSecureContext){
+        await navigator.clipboard.writeText(PIX);
+      }else{
+        const area = document.createElement("textarea");
+        area.value = PIX;
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.focus(); area.select();
+        document.execCommand("copy");
+        area.remove();
+      }
+      $("successBox").style.display = "block";
+      setTimeout(function(){ $("successBox").style.display = "none"; },1800);
+    }catch(e){
+      window.prompt("Copie sua chave Pix:",PIX);
+    }
+  }
+
+  function field(id){ return $(id).value.trim(); }
+
+  function sendProof(){
+    $("errorBox").style.display = "none";
+    if(cartCount()===0){
+      $("errorBox").textContent = "Escolha 30 ou 60 ovos antes de continuar.";
+      $("errorBox").style.display = "block";
+      $("cart").scrollIntoView({behavior:"smooth"});
+      return;
+    }
+    const items = [];
+    if(cart[30]) items.push(cart[30]+"x 30 ovos");
+    if(cart[60]) items.push(cart[60]+"x 60 ovos");
+    const addressParts = [];
+    if(field("rua")) addressParts.push(field("rua"));
+    if(field("quadra")) addressParts.push("Quadra "+field("quadra"));
+    if(field("lote")) addressParts.push("Lote "+field("lote"));
+    if(field("bairro")) addressParts.push(field("bairro"));
+    if(field("cidade")) addressParts.push(field("cidade"));
+    if(field("cep")) addressParts.push("CEP "+field("cep"));
+    if(field("referencia")) addressParts.push("Ref.: "+field("referencia"));
+    const address = addressParts.length ? addressParts.join(", ") : "Não informado";
+    const message =
+      "Olá! Fiz um pedido na Maceggs.\n\n"+
+      "Nome: "+(field("nome") || "Não informado")+"\n"+
+      "Pedido: "+items.join(", ")+"\n"+
+      "Total: "+brl(cartTotal())+"\n"+
+      "Entrega: "+address+"\n\n"+
+      "Estou enviando o comprovante do Pix.";
+    const url = "https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(message);
+    window.location.href = url;
+  }
+
+  $("add30").addEventListener("click",function(){ add(30); });
+  $("add60").addEventListener("click",function(){ add(60); });
+  $("goCart").addEventListener("click",function(){ $("cart").scrollIntoView({behavior:"smooth"}); });
+  $("copyPix").addEventListener("click",copyPix);
+  $("copyPix2").addEventListener("click",copyPix);
+  $("sendProof").addEventListener("click",sendProof);
+  renderCart();
+})();
+</script>
+</body>
+</html>
